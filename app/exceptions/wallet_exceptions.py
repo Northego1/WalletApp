@@ -19,3 +19,7 @@ class WalletDepositError(WalletError):
 
 class WalletWithDrawError(WalletError):
     pass
+
+
+class WalletNotFoundError(WalletError):
+    pass

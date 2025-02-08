@@ -9,18 +9,19 @@ from exceptions.wallet_exceptions import WalletError
 class WalletOperationController:
     def __init__(
             self: Self,
-            operations: dict[OperationType, WalletOperationsUseCaseProtocol]
+            use_case_operation_dict: dict[OperationType, WalletOperationsUseCaseProtocol]
     ) -> None:
-        self.operations = operations
+        self.use_case_operation_dict = use_case_operation_dict
 
 
     async def operation(
             self: Self,
-            user_id: uuid.UUID,
+            wallet_id: uuid.UUID,
             wallet_request_dto: WalletRequestDto
     ):
         try:
-            operation = self.operations[wallet_request_dto.operationType]
-
-        except WalletError as e:
+            operation_use_cases = self.use_case_operation_dict[wallet_request_dto.operationType]
+            await operation_use_cases.operation(wallet_id=wallet_id, amount=wallet_request_dto.amount)
             
+        except WalletError as e:
+            pass

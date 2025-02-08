@@ -13,11 +13,9 @@ class Wallet:
     def __init__(
             self: Self,
             id: uuid.UUID,
-            owner_id: uuid.UUID,
             balance: float = 0
     ) -> None:
         self.id = id
-        self.owner_id = owner_id
         self.balance = balance
 
 
