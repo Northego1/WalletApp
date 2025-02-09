@@ -7,6 +7,8 @@ class OperationType(str, Enum):
     WITHDRAW = 'WITHDRAW'
 
 
-class WalletRequestDto(BaseModel):
+class WalletRequestModel(BaseModel):
     operationType: OperationType
     amount: float
+
+

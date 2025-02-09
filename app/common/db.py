@@ -28,12 +28,6 @@ engine = create_async_engine(
 
 
 
-# async_session_maker = async_sessionmaker(bind=engine, expire_on_commit=True)
-
-# async def get_connection() -> AsyncGenerator[AsyncConnection, None]:
-#     async with engine.connect() as conn:
-#         yield conn
-
 
 class Base(DeclarativeBase):
     pass

@@ -9,7 +9,7 @@ from sqlalchemy.exc import (
 )
 
 from wallet.domain.wallet import Wallet
-
+from exceptions.wallet_exceptions import WalletNotFoundError
 
 class WalletRepository:
     def __init__(self: Self, conn: Callable[..., AsyncConnection]) -> None:
@@ -41,7 +41,6 @@ class WalletRepository:
             
 
     async def get_wallet_by_id(self: Self, wallet_id: uuid.UUID) -> Wallet:
-        print(type(self.conn_factory))
         async with self.conn_factory() as conn:
             try:
                 quary_result = await conn.execute(text(
@@ -57,7 +56,10 @@ class WalletRepository:
                 )
                 row = quary_result.fetchone()
                 if not row:
-                    raise Exception()
+                    raise WalletNotFoundError(
+                        status_code=404,
+                        detail=f'Wallet {wallet_id!r} not found'
+                    )
                 return Wallet(id=row[0], balance=row[1])
             
             except IntegrityError as e:

@@ -4,7 +4,7 @@ from dependency_injector import containers, providers
 from common.db import DataBase
 from wallet.infrastructure.repository.wallet_repository import WalletRepository
 from wallet.application.operation_use_case import WalletDepositUseCase, WalletWithDrawUseCase
-from schemas.wallet_request_scheme import OperationType
+from schemas.requests.wallet_request_schemes import OperationType
 from wallet.application.balance_use_case import WalletGetBalanceUseCase
 from api.v1.controllers.wallet.balance import WalletGetBalance
 from api.v1.controllers.wallet.operation import WalletOperationController

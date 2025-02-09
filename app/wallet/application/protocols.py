@@ -5,7 +5,7 @@ from schemas.dto.wallet_dto import WalletBalanceDto
 
 
 class WalletOperationsUseCaseProtocol(Protocol):
-    async def operation(self: Self, wallet_id: uuid.UUID, amount: float):
+    async def operation(self: Self, wallet_id: uuid.UUID, amount: float) -> WalletBalanceDto:
         ...
 
 

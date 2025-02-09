@@ -1,4 +1,5 @@
 from typing import Self
+import uuid
 
 
 class WalletError(Exception):
@@ -14,12 +15,12 @@ class WalletError(Exception):
 
 
 class WalletDepositError(WalletError):
-    pass
+    ...
 
 
 class WalletWithDrawError(WalletError):
-    pass
+    ...
 
 
 class WalletNotFoundError(WalletError):
-    pass
+    ...

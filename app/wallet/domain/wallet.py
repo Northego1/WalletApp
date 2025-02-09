@@ -42,12 +42,12 @@ class Wallet:
         if self.balance <= 0:
             raise WalletWithDrawError(
                 status_code=400,
-                detail='Impossible to withdraw, the amount must be positive.'
+                detail='Impossible to withdraw, the balance less or equal 0.'
             )
         if self.balance < amount:
             raise WalletWithDrawError(
                 status_code=400,
-                detail='Impossible to withdraw, the balance is less than the amount'
+                detail='Impossible to withdraw, the balance is less than the amount.'
             )
         self.balance -= amount
         
