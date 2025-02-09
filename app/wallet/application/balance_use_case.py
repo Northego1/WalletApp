@@ -1,8 +1,8 @@
 from typing import Self
 import uuid
 
-from app.schemas.dto.wallet_balance_dto import WalletBalanceDto
-from app.wallet.infrastructure.repository.protocols import WalletRepositoryProtocol
+from schemas.dto.wallet_dto import WalletBalanceDto
+from wallet.infrastructure.repository.protocols import WalletRepositoryProtocol
 
 
 class WalletGetBalanceUseCase:

@@ -1,7 +1,7 @@
 from typing import Self
 import uuid
 
-from app.exceptions.wallet_exceptions import (
+from exceptions.wallet_exceptions import (
     WalletDepositError,
     WalletWithDrawError
 )

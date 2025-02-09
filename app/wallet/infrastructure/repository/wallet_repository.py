@@ -8,7 +8,7 @@ from sqlalchemy.exc import (
     DatabaseError
 )
 
-from app.wallet.domain.wallet import Wallet
+from wallet.domain.wallet import Wallet
 
 
 class WalletRepository:

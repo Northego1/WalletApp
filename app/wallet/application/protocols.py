@@ -1,7 +1,7 @@
 from typing import Protocol, Self
 import uuid
 
-from app.schemas.dto.wallet_balance_dto import WalletBalanceDto
+from schemas.dto.wallet_dto import WalletBalanceDto
 
 
 class WalletOperationsUseCaseProtocol(Protocol):
@@ -10,5 +10,5 @@ class WalletOperationsUseCaseProtocol(Protocol):
 
 
 class WalletGetBalanceUseCaseProtocol(Protocol):
-    async def get_balance(self: Self, wallet_id: uuid.UUID) -> WalletBalanceDto:
+    async def get_wallet_balance(self: Self, wallet_id: uuid.UUID) -> WalletBalanceDto:
         ...

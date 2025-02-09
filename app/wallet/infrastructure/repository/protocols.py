@@ -1,7 +1,7 @@
 from typing import Protocol, Self
 import uuid
 
-from app.wallet.domain.wallet import Wallet
+from wallet.domain.wallet import Wallet
 
 
 class WalletRepositoryProtocol(Protocol):

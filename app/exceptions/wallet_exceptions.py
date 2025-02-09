@@ -5,7 +5,7 @@ class WalletError(Exception):
     def __init__(
             self: Self,
             status_code: int = 400,
-            detail: str = 'Unkonwn wallet error',
+            detail: str = 'Unknown wallet error',
             *args: object
     ) -> None:
         self.detail = detail
