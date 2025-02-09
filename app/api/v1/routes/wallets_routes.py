@@ -4,12 +4,10 @@ from fastapi import APIRouter, Depends
 from api.v1.controllers.protocols import WalletGetBalanceControllerProtocol, WalletOperationControllerProtocol
 from schemas.requests.wallet_request_schemes import WalletRequestModel
 from schemas.responses.wallet_response_schemes import (
-    WalletResponse,
     WalletBalanceResponse200,
     WalletBalanceResponse404,
     WalletOperationResponse200,
     WalletOperationResponse400,
-    WalletOperationResponse
 )
 from container import container
 
@@ -33,7 +31,7 @@ async def make_wallet_operation(
     operation_controller: WalletOperationControllerProtocol = (
         Depends(lambda: container.wallet_operation_controller())
     )
-) -> WalletOperationResponse:
+) -> WalletOperationResponse200:
     return await operation_controller.operation(
         wallet_id=wallet_uuid,
         wallet_request_dto=wallet_request_dto
@@ -53,5 +51,5 @@ async def get_wallet_balance(
     balance_controller: WalletGetBalanceControllerProtocol = (
         Depends(lambda: container.wallet_balance_controller())
     )
-) -> WalletResponse:
+) -> WalletBalanceResponse200:
     return await balance_controller.get_balance(wallet_id=wallet_uuid)
