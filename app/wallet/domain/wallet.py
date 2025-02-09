@@ -21,7 +21,7 @@ class Wallet:
 
     @property
     def balance(self: Self) -> float:
-        return self.balance
+        return self._balance
     
 
     @balance.setter

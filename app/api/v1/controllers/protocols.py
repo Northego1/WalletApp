@@ -1,10 +1,10 @@
 from typing import Protocol, Self
 import uuid
 
-from app.schemas.wallet_request_scheme import WalletRequestDto
+from schemas.wallet_request_scheme import WalletRequestDto
 
 
-class WalletOperationProtocol(Protocol):
+class WalletOperationControllerProtocol(Protocol):
     async def operation(
             self: Self,
             wallet_id: uuid.UUID,
@@ -13,7 +13,7 @@ class WalletOperationProtocol(Protocol):
         pass
 
 
-class WalletGetBalanceProtocol(Protocol):
+class WalletGetBalanceControllerProtocol(Protocol):
     async def get_balance(
             self: Self,
             wallet_id: uuid.UUID

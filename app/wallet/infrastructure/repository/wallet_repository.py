@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Callable, Self
 import uuid
 
 from sqlalchemy import text
@@ -12,8 +12,8 @@ from wallet.domain.wallet import Wallet
 
 
 class WalletRepository:
-    def __init__(self: Self, conn: AsyncConnection) -> None:
-        self.conn = conn
+    def __init__(self: Self, conn: Callable[..., AsyncConnection]) -> None:
+        self.conn_factory = conn
         
         
     async def update_wallet_balance(
@@ -21,9 +21,9 @@ class WalletRepository:
             wallet_id: uuid.UUID,
             new_balance: float
     ):
-        async with self.conn.begin():
+        async with self.conn_factory() as conn:
             try:
-                await self.conn.execute(text(
+                await conn.execute(text(
                     '''
                         UPDATE wallets
                         SET balance = :new_balance
@@ -41,9 +41,10 @@ class WalletRepository:
             
 
     async def get_wallet_by_id(self: Self, wallet_id: uuid.UUID) -> Wallet:
-        async with self.conn.begin():
+        print(type(self.conn_factory))
+        async with self.conn_factory() as conn:
             try:
-                quary_result = await self.conn.execute(text(
+                quary_result = await conn.execute(text(
                     '''
                         SELECT *
                         FROM wallets
