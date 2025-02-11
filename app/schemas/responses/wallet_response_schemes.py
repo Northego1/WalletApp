@@ -15,7 +15,7 @@ class WalletBalanceResponse200(WalletResponse):
     detail: WalletBalance
 
 
-class WalletBalanceResponse404(WalletResponse):
+class WalletNotFound(WalletResponse):
     detail: str
 
 

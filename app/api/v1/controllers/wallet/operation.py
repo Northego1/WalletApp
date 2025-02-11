@@ -5,7 +5,6 @@ from fastapi import HTTPException
 
 from schemas.responses.wallet_response_schemes import (
     WalletBalance,
-    WalletBalanceResponse200,
     WalletOperationResponse200
 )
 from wallet.application.protocols import WalletOperationsUseCaseProtocol

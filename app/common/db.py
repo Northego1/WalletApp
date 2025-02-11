@@ -6,25 +6,24 @@ from sqlalchemy.ext.asyncio import (
 )
 
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.ext.asyncio import async_scoped_session
 from config import settings
 
 
 class DataBase:
     def __init__(self: Self, url: str) -> None:
-        self._engine = create_async_engine(url=url)
+        self.engine = create_async_engine(
+            url=url,
+            pool_size=settings.db.conn_pool,
+            max_overflow=settings.db.conn_max_overflow,
+            pool_timeout=settings.db.conn_timeout,
+            pool_recycle=settings.db.conn_recycle
+        )
         
 
     @asynccontextmanager
     async def connection(self: Self) -> AsyncGenerator[AsyncConnection, None]:
-        async with self._engine.begin() as conn:
+        async with self.engine.begin() as conn:
             yield conn
-
-
-
-engine = create_async_engine(
-    url=settings.db.dsn
-)
 
 
 

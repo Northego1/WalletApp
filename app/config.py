@@ -7,11 +7,17 @@ load_dotenv()
 
 class DataBase:
     def __init__(self: Self) -> None:
-        self.DB_USER: str = os.environ.get('DB_USER', 'postgres')
-        self.DB_PASS: str = os.environ.get('DB_PASS', 'postgres')
-        self.DB_NAME: str = os.environ.get('DB_NAME', 'postgres')
-        self.DB_HOST: str = os.environ.get('DB_HOST', 'localhost')
-        self.DB_PORT: str = os.environ.get('DB_PORT', '5432')
+        self.DB_USER = os.environ.get('DB_USER', 'postgres')
+        self.DB_PASS = os.environ.get('DB_PASS', 'postgres')
+        self.DB_NAME = os.environ.get('DB_NAME', 'postgres')
+        self.DB_HOST = os.environ.get('DB_HOST', 'localhost')
+        self.DB_PORT = os.environ.get('DB_PORT', '5432')
+
+        self.conn_pool = os.environ.get('conn_pool', 10)
+        self.conn_max_overflow = os.environ.get('max_overflow', 2)
+        self.conn_timeout = os.environ.get('timeout', 30)
+        self.conn_recycle = os.environ.get('conn_recycle', 1800)
+
         
 
     @property

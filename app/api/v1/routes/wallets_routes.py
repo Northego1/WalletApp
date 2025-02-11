@@ -5,7 +5,7 @@ from api.v1.controllers.protocols import WalletGetBalanceControllerProtocol, Wal
 from schemas.requests.wallet_request_schemes import WalletRequestModel
 from schemas.responses.wallet_response_schemes import (
     WalletBalanceResponse200,
-    WalletBalanceResponse404,
+    WalletNotFound,
     WalletOperationResponse200,
     WalletOperationResponse400,
 )
@@ -15,6 +15,9 @@ from container import container
 router = APIRouter(
     tags=['Wallet'],
     prefix='/api/v1/wallets',
+    responses={
+        404: {"model": WalletNotFound}
+    }
 )
 
 
@@ -22,7 +25,7 @@ router = APIRouter(
         '/{wallet_uuid}/operation',
         responses={
             200: {'model': WalletOperationResponse200},
-            400: {'model': WalletOperationResponse400}
+            400: {'model': WalletOperationResponse400},
         }
 )
 async def make_wallet_operation(
@@ -43,7 +46,6 @@ async def make_wallet_operation(
         '/{wallet_uuid}',
         responses={
             200: {"model": WalletBalanceResponse200},
-            404: {"model": WalletBalanceResponse404},
         }
 )
 async def get_wallet_balance(
