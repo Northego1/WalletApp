@@ -1,6 +1,7 @@
 from dependency_injector import containers, providers
 
 
+from common.uow import UnitOfWork
 from common.db import DataBase
 from wallet.infrastructure.repository.wallet_repository import WalletRepository
 from wallet.application.operation_use_case import WalletDepositUseCase, WalletWithDrawUseCase
@@ -14,28 +15,31 @@ from config import settings
 class Container(containers.DeclarativeContainer):
     db = providers.Singleton(DataBase, settings.db.dsn)
 
-    wallet_repository = providers.Factory(
-        WalletRepository,
-        conn=db.provided.connection
-    )
+    
 
+    unit_of_work = providers.Factory(
+        UnitOfWork,
+        repository_factory=WalletRepository,
+        session_factory=db.provided.engine
+
+    )
 
     operations_use_cases = providers.Dict(
         {
             OperationType.DEPOSIT: providers.Factory(
                 WalletDepositUseCase,
-                wallet_repository=wallet_repository,
+                uow=unit_of_work,
             ),
             OperationType.WITHDRAW: providers.Factory(
                 WalletWithDrawUseCase,
-                wallet_repository=wallet_repository,
+                uow=unit_of_work,
             )
         }
     )
 
     wallet_balance_use_case = providers.Factory(
         WalletGetBalanceUseCase,
-        wallet_repository=wallet_repository
+        uow=unit_of_work
     )
 
 
