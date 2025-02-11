@@ -26,6 +26,7 @@ class WalletDepositUseCase:
                 balance=wallet.balance
             )
 
+
 class WalletWithDrawUseCase:
     def __init__(self: Self, uow: UnitOfWork[WalletRepositoryProtocol]) -> None:
         self.uow = uow
