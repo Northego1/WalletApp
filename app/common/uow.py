@@ -7,7 +7,8 @@ T = TypeVar('T')
 
 class SessionProtocol(Protocol):
     @classmethod
-    async def connect(cls) -> Self: ...
+    async def connect(cls) -> Self:
+        return cls()
 
     async def commit(self: Self): ...
     async def rollback(self: Self): ...

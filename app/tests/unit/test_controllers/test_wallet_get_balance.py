@@ -6,7 +6,10 @@ from fastapi import HTTPException
 
 from container import container
 from schemas.dto.wallet_dto import WalletBalanceDto
-from schemas.responses.wallet_response_schemes import WalletBalanceResponse200, WalletBalance
+from schemas.responses.wallet_response_schemes import (
+    WalletBalanceResponse200, 
+    WalletBalance
+)
 from tests.unit.mocks.mock_objects import mock_balance_dto
 from tests.unit.mocks.mock_balance_use_case import MockWalletGetBalance
 from dependency_injector import providers
@@ -54,3 +57,4 @@ async def test_wallet_balance_controller(
         assert await wallet_balance_controller.get_balance(
             wallet_id=wallet_id
         ) == expection
+
