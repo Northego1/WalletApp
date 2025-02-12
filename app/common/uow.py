@@ -14,9 +14,6 @@ class SessionProtocol(Protocol):
     async def close(self: Self): ...
         
 
-
-
-
 class UnitOfWork(Generic[T]):
     def __init__(
             self: Self,
