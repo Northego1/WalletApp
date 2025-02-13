@@ -2,12 +2,13 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 from api.v1 import routes
+from container import container
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    # container.init_resources()
-    # container.wire(modules=['api.v1.routes'])
+    db = container.db()
+    await db.get_ready_connection_pool()
     yield
 
 app = FastAPI(lifespan=lifespan)

@@ -13,7 +13,7 @@ class DataBase:
         self.DB_HOST = os.environ.get('DB_HOST', 'localhost')
         self.DB_PORT = os.environ.get('DB_PORT', '5432')
 
-        self.conn_pool = int(os.environ.get('conn_pool', 10))
+        self.conn_pool = int(os.environ.get('conn_pool', 8))
         self.conn_max_overflow = int(os.environ.get('max_overflow', 2))
         self.conn_timeout = int(os.environ.get('timeout', 30))
         self.conn_recycle = int(os.environ.get('conn_recycle', 1800))

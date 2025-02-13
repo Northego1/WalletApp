@@ -18,8 +18,15 @@ class DataBase:
             pool_timeout=settings.db.conn_timeout,
             pool_recycle=settings.db.conn_recycle
         )
-        
 
+
+    async def get_ready_connection_pool(self: Self):
+        for _ in range(1):
+            connect = await self.engine.connect()
+            await connect.close()
+
+        
+    
     @asynccontextmanager
     async def connection(self: Self) -> AsyncGenerator[AsyncConnection, None]:
         async with self.engine.begin() as conn:
