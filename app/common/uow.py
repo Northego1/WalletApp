@@ -44,7 +44,7 @@ class UnitOfWork(Generic[T]):
         if exc_type:
             await self._session.rollback()
             await self._session.close()
-            raise WalletError(status_code=400, detail='deadlock')
+            raise WalletError(status_code=400)
         else:
             await self._session.commit()
             await self._session.close()
