@@ -1,4 +1,5 @@
 from typing import Any, Callable, Generic, Protocol, Self, Type, TypeVar
+from exceptions.wallet_exceptions import WalletError
 from sqlalchemy.ext.asyncio import AsyncEngine
 import uuid
 
@@ -42,9 +43,11 @@ class UnitOfWork(Generic[T]):
     async def __aexit__(self: Self, exc_type: Any, exc: Any, tb: Any):
         if exc_type:
             await self._session.rollback()
+            await self._session.close()
+            raise WalletError(status_code=400, detail='deadlock')
         else:
             await self._session.commit()
-        await self._session.close()
+            await self._session.close()
 
 
     async def commit(self: Self):
