@@ -12,7 +12,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - ./docker/db-init:/docker-entrypoint-initdb.d
     ports:
-      - "5434:5432"
+      - "${DB_OUTSIDE_PORT}:5432"
 
 
   liquibase:
@@ -43,7 +43,7 @@ services:
     env_file:
       - ./app/.env
     ports:
-      - "14000:8000"
+      - "${APP_PORT}:8000"
     depends_on:
       - postgres
       - liquibase

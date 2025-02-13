@@ -1,3 +1,6 @@
 cd app
 
-gunicorn main:app --workers 8 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+export $(grep -v '^#' .env | xargs)
+
+
+gunicorn main:app --workers $APP_GUNICORN_WORKERS --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
