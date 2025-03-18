@@ -1,13 +1,16 @@
 FROM python:3.12.3-slim
 
-RUN pip install --upgrade pip && pip install poetry
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
 
-WORKDIR /app
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
 
-COPY pyproject.toml poetry.lock ./
+RUN sh /uv-installer.sh && rm /uv-installer.sh
 
-RUN poetry config virtualenvs.create false \
-    && poetry install --only main --no-interaction --no-ansi --no-root
+ENV PATH="/root/.local/bin/:$PATH"
+
+COPY uv.lock pyproject.toml ./
+
+RUN uv sync --frozen
 
 COPY . .
 

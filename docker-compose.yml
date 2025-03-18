@@ -39,15 +39,15 @@ services:
 
   test_case_app:
     build: .
-    container_name: app
+    container_name: wallet_app
     env_file:
-      - ./app/.env
+      - ./src/.env
     ports:
       - "${APP_PORT}:8000"
     depends_on:
       - postgres
       - liquibase
     command: 
-      ["sh", "-c", "chmod +x docker/app.sh && docker/app.sh"]
+      ["sh", "-c", "chmod +x docker/src.sh && docker/src.sh"]
 volumes:
   postgres-data:
