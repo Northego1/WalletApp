@@ -1,10 +1,7 @@
 import uuid
 from fastapi import APIRouter, Depends
 
-from api.v1.controllers.protocols import (
-    WalletGetBalanceControllerProtocol,
-    WalletOperationControllerProtocol,
-)
+from WalletApp.src.wallet.controllers.protocols import WalletGetBalanceControllerProtocol, WalletOperationControllerProtocol
 from schemas.requests.wallet_request_schemes import WalletRequestModel
 from schemas.responses.wallet_response_schemes import (
     WalletBalanceResponse200,

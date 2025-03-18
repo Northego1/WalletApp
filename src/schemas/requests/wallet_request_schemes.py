@@ -1,3 +1,4 @@
+from decimal import Decimal
 from pydantic import BaseModel
 from enum import Enum
 
@@ -9,4 +10,4 @@ class OperationType(str, Enum):
 
 class WalletRequestModel(BaseModel):
     operationType: OperationType
-    amount: float
+    amount: Decimal

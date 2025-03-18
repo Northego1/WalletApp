@@ -1,29 +1,25 @@
-import sys
-
-
-print(sys.path, "\n\n\n\n")
-
+from decimal import Decimal
 
 from typing import Optional, Type
 import pytest
 
-from wallet.domain.wallet import Wallet
+from wallet.domain.wallet import Wallet, WalletDepositError, WalletWithDrawError
 import uuid
-from WalletApp.src.core.wallet_exceptions import WalletDepositError, WalletWithDrawError
+
 
 
 @pytest.mark.parametrize(
     "wallet, amount, expected, exception",
     [
-        (Wallet(id=uuid.uuid4(), balance=100), 100, 200, None),
-        (Wallet(id=uuid.uuid4(), balance=-100), 100, 0, None),
-        (Wallet(id=uuid.uuid4(), balance=100), -100, None, WalletDepositError),
+        (Wallet(id=uuid.uuid4(), balance=Decimal(100)), Decimal(100), Decimal(200), None),
+        (Wallet(id=uuid.uuid4(), balance=Decimal(-100)), Decimal(100), 0, None),
+        (Wallet(id=uuid.uuid4(), balance=Decimal(100)), Decimal(-100), None, WalletDepositError),
     ],
 )
 def test_wallet_deposit(
     wallet: Wallet,
-    amount: float,
-    expected: Optional[float],
+    amount: Decimal,
+    expected: Optional[Decimal],
     exception: Optional[Type[Exception]],
 ):
     if exception:
@@ -37,15 +33,15 @@ def test_wallet_deposit(
 @pytest.mark.parametrize(
     "wallet, amount, expected, exception",
     [
-        (Wallet(id=uuid.uuid4(), balance=100), 100, 0, None),
-        (Wallet(id=uuid.uuid4(), balance=0), 1, None, WalletWithDrawError),
-        (Wallet(id=uuid.uuid4(), balance=-1), 1, None, WalletWithDrawError),
+        (Wallet(id=uuid.uuid4(), balance=Decimal(100)), Decimal(100), 0, None),
+        (Wallet(id=uuid.uuid4(), balance=Decimal(0)), Decimal(1), None, WalletWithDrawError),
+        (Wallet(id=uuid.uuid4(), balance=Decimal(-1)), Decimal(1), None, WalletWithDrawError),
     ],
 )
 def test_wallet_withdraw(
     wallet: Wallet,
-    amount: float,
-    expected: Optional[float],
+    amount: Decimal,
+    expected: Optional[Decimal],
     exception: Optional[Type[Exception]],
 ):
     if exception:

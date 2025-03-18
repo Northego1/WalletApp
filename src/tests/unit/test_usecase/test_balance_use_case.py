@@ -5,8 +5,8 @@ import pytest
 from dependency_injector import providers
 
 from WalletApp.src.core.uow import UnitOfWork
+from WalletApp.src.wallet.domain.wallet import WalletNotFoundError
 from container import container
-from WalletApp.src.core.wallet_exceptions import WalletNotFoundError
 from schemas.dto.wallet_dto import WalletBalanceDto
 from tests.unit.mocks.mock_objects import mock_balance_dto
 from wallet.application.balance_use_case import WalletGetBalanceUseCase

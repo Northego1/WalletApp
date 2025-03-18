@@ -1,3 +1,4 @@
+from decimal import Decimal
 import uuid
 from pydantic import BaseModel
 
@@ -10,7 +11,7 @@ class WalletOperationResponse(BaseModel): ...
 
 class WalletBalance(BaseModel):
     wallet_id: uuid.UUID
-    balance: float
+    balance: Decimal
 
 
 class WalletBalanceResponse200(WalletResponse):

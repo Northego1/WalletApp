@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Optional, Type
 import uuid
 
@@ -5,8 +6,8 @@ import pytest
 from dependency_injector import providers
 
 from WalletApp.src.core.uow import UnitOfWork
+from WalletApp.src.wallet.domain.wallet import WalletWithDrawError
 from container import container
-from WalletApp.src.core.wallet_exceptions import WalletWithDrawError
 from schemas.dto.wallet_dto import WalletBalanceDto
 from schemas.requests.wallet_request_schemes import OperationType
 from tests.unit.mocks.mock_objects import mock_balance_dto
@@ -22,16 +23,16 @@ from tests.unit.mocks.mock_db_session import MockSession
         (
             mock_balance_dto.wallet_id,
             100,
-            WalletBalanceDto(wallet_id=mock_balance_dto.wallet_id, balance=0),
+            WalletBalanceDto(wallet_id=mock_balance_dto.wallet_id, balance=Decimal(0)),
             None,
         ),
         (
             mock_balance_dto.wallet_id,
             100,
-            WalletBalanceDto(wallet_id=mock_balance_dto.wallet_id, balance=0),
+            WalletBalanceDto(wallet_id=mock_balance_dto.wallet_id, balance=Decimal(0)),
             None,
         ),
-        (mock_balance_dto.wallet_id, 200, None, WalletWithDrawError),
+        (mock_balance_dto.wallet_id, Decimal(200), None, WalletWithDrawError),
     ],
 )
 async def test_wallet_withdraw_use_case(

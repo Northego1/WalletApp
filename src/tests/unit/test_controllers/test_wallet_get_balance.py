@@ -4,6 +4,7 @@ import uuid
 import pytest
 from fastapi import HTTPException
 
+from WalletApp.src.wallet.controllers.wallet.balance import WalletGetBalance
 from container import container
 from schemas.dto.wallet_dto import WalletBalanceDto
 from schemas.responses.wallet_response_schemes import (
@@ -13,7 +14,6 @@ from schemas.responses.wallet_response_schemes import (
 from tests.unit.mocks.mock_objects import mock_balance_dto
 from tests.unit.mocks.mock_balance_use_case import MockWalletGetBalance
 from dependency_injector import providers
-from api.v1.controllers.wallet.balance import WalletGetBalance
 
 
 @pytest.mark.asyncio

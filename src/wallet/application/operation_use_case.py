@@ -1,7 +1,8 @@
+from decimal import Decimal
 from typing import Self
 import uuid
-from WalletApp.src.core.wallet_exceptions import WalletNotFoundError
 from WalletApp.src.core.uow import UnitOfWork
+from WalletApp.src.wallet.domain.wallet import WalletNotFoundError
 from wallet.infrastructure.repository.protocols import WalletRepositoryProtocol
 from schemas.dto.wallet_dto import WalletBalanceDto
 
@@ -11,7 +12,7 @@ class WalletDepositUseCase:
         self.uow = uow
 
     async def operation(
-        self: Self, wallet_id: uuid.UUID, amount: float
+        self: Self, wallet_id: uuid.UUID, amount: Decimal
     ) -> WalletBalanceDto:
         async with self.uow:
             wallet = await self.uow.repository.get_wallet_for_update(
@@ -33,7 +34,7 @@ class WalletWithDrawUseCase:
         self.uow = uow
 
     async def operation(
-        self: Self, wallet_id: uuid.UUID, amount: float
+        self: Self, wallet_id: uuid.UUID, amount: Decimal
     ) -> WalletBalanceDto:
         async with self.uow:
             wallet = await self.uow.repository.get_wallet_for_update(

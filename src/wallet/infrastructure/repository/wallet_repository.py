@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Optional, Self
 import uuid
 
@@ -13,7 +14,7 @@ class WalletRepository:
         self.conn = conn
 
     async def update_wallet_balance(
-        self: Self, wallet_id: uuid.UUID, new_balance: float
+        self: Self, wallet_id: uuid.UUID, new_balance: Decimal
     ):
         try:
             await self.conn.execute(
@@ -31,6 +32,7 @@ class WalletRepository:
 
         except DatabaseError as e:
             pass
+
 
     async def get_wallet_for_update(
         self: Self, wallet_id: uuid.UUID
@@ -57,6 +59,7 @@ class WalletRepository:
 
         except DatabaseError as e:
             raise Exception()
+
 
     async def get_wallet_by_id(self: Self, wallet_id: uuid.UUID) -> Optional[Wallet]:
         try:

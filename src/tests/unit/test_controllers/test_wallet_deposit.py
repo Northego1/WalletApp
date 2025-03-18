@@ -1,9 +1,11 @@
+from decimal import Decimal
 from typing import Optional, Type
 import uuid
 
 from fastapi import HTTPException
 import pytest
 
+from WalletApp.src.wallet.controllers.wallet.operation import WalletOperationController
 from container import container
 from schemas.dto.wallet_dto import WalletBalanceDto
 from schemas.responses.wallet_response_schemes import (
@@ -17,8 +19,6 @@ from tests.unit.mocks.mock_operation_use_case import (
     MockWalletWithdrawUseCase,
 )
 from dependency_injector import providers
-from api.v1.controllers.wallet.operation import WalletOperationController
-from wallet.application.operation_use_case import WalletDepositUseCase
 
 
 @pytest.mark.asyncio
@@ -27,7 +27,7 @@ from wallet.application.operation_use_case import WalletDepositUseCase
     [
         (
             mock_balance_dto.wallet_id,
-            WalletRequestModel(operationType=OperationType.DEPOSIT, amount=100),
+            WalletRequestModel(operationType=OperationType.DEPOSIT, amount=Decimal(100)),
             WalletOperationResponse200(
                 detail=WalletBalance(
                     wallet_id=mock_balance_dto.wallet_id,
@@ -38,7 +38,7 @@ from wallet.application.operation_use_case import WalletDepositUseCase
         ),
         (
             "uncorrect data",
-            WalletRequestModel(operationType=OperationType.DEPOSIT, amount=100),
+            WalletRequestModel(operationType=OperationType.DEPOSIT, amount=Decimal(100)),
             None,
             HTTPException,
         ),
@@ -80,7 +80,7 @@ async def test_wallet_deposit_controller(
     [
         (
             mock_balance_dto.wallet_id,
-            WalletRequestModel(operationType=OperationType.WITHDRAW, amount=100),
+            WalletRequestModel(operationType=OperationType.WITHDRAW, amount=Decimal(100)),
             WalletOperationResponse200(
                 detail=WalletBalance(
                     wallet_id=mock_balance_dto.wallet_id,
@@ -91,7 +91,7 @@ async def test_wallet_deposit_controller(
         ),
         (
             "uncorrect data",
-            WalletRequestModel(operationType=OperationType.WITHDRAW, amount=100),
+            WalletRequestModel(operationType=OperationType.WITHDRAW, amount=Decimal(100)),
             None,
             HTTPException,
         ),

@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Self
 import uuid
 
@@ -16,26 +17,26 @@ class WalletNotFoundError(WalletError): ...
 class Wallet:
     __slots__ = ("id", "owner_id", "_balance")
 
-    def __init__(self: Self, id: uuid.UUID, balance: float = 0) -> None:
+    def __init__(self: Self, id: uuid.UUID, balance: Decimal = Decimal(0)) -> None:
         self.id = id
         self.balance = balance
 
     @property
-    def balance(self: Self) -> float:
+    def balance(self: Self) -> Decimal:
         return self._balance
 
     @balance.setter
-    def balance(self: Self, value: float):
+    def balance(self: Self, value: Decimal):
         self._balance = value
 
-    def deposit(self: Self, amount: float):
+    def deposit(self: Self, amount: Decimal):
         if amount <= 0:
             raise WalletDepositError(
                 status_code=400, detail="Deposit amount must be positive."
             )
         self.balance += amount
 
-    def withdraw(self: Self, amount: float):
+    def withdraw(self: Self, amount: Decimal):
         if self.balance <= 0:
             raise WalletWithDrawError(
                 status_code=400,

@@ -1,8 +1,8 @@
 from typing import Self
 import uuid
 
-from WalletApp.src.core.wallet_exceptions import WalletNotFoundError
 from WalletApp.src.core.uow import UnitOfWork
+from WalletApp.src.wallet.domain.wallet import WalletNotFoundError
 from schemas.dto.wallet_dto import WalletBalanceDto
 from wallet.infrastructure.repository.protocols import WalletRepositoryProtocol
 
